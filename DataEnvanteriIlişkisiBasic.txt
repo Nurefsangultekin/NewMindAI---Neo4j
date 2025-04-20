@@ -1,0 +1,118 @@
+MATCH (a:Employee {name: "Ali"})-[:DataSharing]->()-[:DataSharing]->(second)
+RETURN DISTINCT second.name, second.department;
+
+MATCH (a:Intern {name: "Ali"})-[:DataSharing]->()-[:DataSharing]->(second)
+RETURN DISTINCT second.name, second.department;
+
+MATCH (a:HeadOfDepartment {name: "Ayşe"})-[:NonProcessorsOfPersonalData]->(nonProcessorsOfPersonalData)
+RETURN nonProcessorsOfPersonalData.name, nonProcessorsOfPersonalData.department;
+
+MATCH (a:HeadOfDepartment {name: "Murat"})-[:DataSharing]->(dataSharing)
+RETURN dataSharing.name, dataSharing.department;
+
+MATCH (a:HeadOfDepartment {name: "Murat"})-[:DataSharing]->(dataSharing)
+RETURN dataSharing.name, dataSharing.department;
+
+MATCH (a:HeadOfDepartment {name: "Ayşe"})-[:NonProcessorsOfPersonalData]->(nonProcessorsOfPersonalData)
+RETURN nonProcessorsOfPersonalData.name, nonProcessorsOfPersonalData.department;
+
+
+
+MATCH (a:Intern {name: "Julia"}), (b:Intern {name: "Ahmet"})
+CREATE (a)-[:NonDataSharing]->(b);
+
+MATCH (a:Intern {name: "John"}), (b:Intern {name: "Ahmet"})
+CREATE (a)-[:NonDataSharing]->(b);
+
+MATCH (a:Intern {name: "Ahmet"}), (b:Intern {name: "John"})
+CREATE (a)-[:NonDataSharing]->(b);
+
+MATCH (a:Intern {name: "Ahmet"}), (b:Intern {name: "Julia"})
+CREATE (a)-[:NonDataSharing]->(b);
+
+MATCH (a:Intern {name: "Ahmet"}), (b:Intern {name: "Cemile"})
+CREATE (a)-[:NonDataSharing]->(b);
+
+MATCH (a:Intern {name: "Ahmet"}), (b:HeadOfDepartment {name: "Cemile"})
+CREATE (a)-[:NonDataSharing]->(b);
+
+MATCH (a:Intern {name: "Ahmet"}), (b:HeadOfDepartment {name: "Ayşe"})
+CREATE (a)-[:DataSharing]->(b);
+
+CREATE (u1:Intern {name: "Ahmet", department: "IT", personalData: "Yes", processedIndividualsData: "name, phone number"});
+
+
+
+MATCH (a:Intern {name: "Cemile"}), (b:HeadOfDepartment {name: "Ayşe"})
+CREATE (a)-[:DataSharing]->(b);
+
+CREATE (u1:Intern {name: "Cemile", department: "IT", personalData: "Yes", processedIndividualsData: "name, phone number"});
+
+
+
+MATCH (a:HeadOfDepartment {name: "Murat"}), (b:Intern {name: "John"})
+CREATE (a)-[:DataSharing]->(b);
+
+MATCH (a:Intern {name: "John"}), (b:HeadOfDepartment {name: "Murat"})
+CREATE (a)-[:DataSharing]->(b);
+
+CREATE (u1:Intern {name: "John", department: "HR", personalData: "Yes", processedIndividualsData: "name, phone number"});
+
+
+
+MATCH (a:Intern {name: "Julia"}), (b:HeadOfDepartment {name: "Murat"})
+CREATE (a)-[:DataSharing]->(b);
+
+MATCH (a:Intern {name: "Julia"}), (b:HeadOfDepartment {name: "Hakan"})
+CREATE (a)-[:DataSharing]->(b);
+
+CREATE (u1:Intern {name: "Julia", department: "Law", personalData: "Yes", processedIndividualsData: "name, phone number"});
+
+
+
+MATCH (a:Employee {name: "Selin"}), (b:HeadOfDepartment {name: "Ayşe"})
+CREATE (a)-[:DataSharing]->(b);
+
+MATCH (a:Employee {name: "Selin"}), (b:HeadOfDepartment {name: "Buse"})
+CREATE (a)-[:DataSharing]->(b);
+
+CREATE (u1:Employee {name: "Selin", department: "IT", personalData: "Yes", processedIndividualsData: "name, phone number, cv, adress"});
+
+
+
+MATCH (a:HeadOfDepartment {name: "Murat"}), (b:Employee {name: "Ali"})
+CREATE (a)-[:DataSharing]->(b);
+
+MATCH (a:Employee {name: "Ali"}), (b:HeadOfDepartment {name: "Murat"})
+CREATE (a)-[:DataSharing]->(b);
+
+CREATE (u1:Employee {name: "Ali", department: "HR", personalData: "Yes", processedIndividualsData: "name, phone number, cv, adress"});
+
+
+
+MATCH (a:HeadOfDepartment {name: "Hakan"}), (b:HeadOfDepartment {name: "Murat"})
+CREATE (a)-[:DataSharing]->(b);
+
+MATCH (a:HeadOfDepartment {name: "Murat"}), (b:HeadOfDepartment {name: "Ayşe"})
+CREATE (a)-[:DataSharing]->(b);
+
+MATCH (a:HeadOfDepartment {name: "Murat"}), (b:HeadOfDepartment {name: "Hakan"})
+CREATE (a)-[:DataSharing]->(b);
+
+MATCH (a:HeadOfDepartment {name: "Hakan"}), (b:HeadOfDepartment {name: "Murat"})
+CREATE (a)-[:ProcessorsOfPersonalData]->(b);
+
+MATCH (a:HeadOfDepartment {name: "Ayşe"}), (b:HeadOfDepartment {name: "Buse"})
+CREATE (a)-[:NonProcessorsOfPersonalData]->(b);
+
+
+
+CREATE (u1:HeadOfDepartment {name: "Ayşe", department: "IT", personalData: "No"});
+
+CREATE (u1:HeadOfDepartment {name: "Buse", department: "HelpDesk", personalData: "No"});
+
+CREATE (u1:HeadOfDepartment {name: "Murat", department: "HR", personalData: "Yes", processedIndividualsData: "name, phone number, cv, adress"});
+
+CREATE (u1:HeadOfDepartment {name: "Hakan", department: "Law", personalData: "Yes", processedIndividualsData: "name, phone number, cv"});
+
+
